@@ -7,8 +7,7 @@ class App extends Component {
     super()
     this.state = {
       images: [],
-      text: '',
-      grayscale: 'grayscale'
+      text: ''
     }
   }
 
@@ -26,7 +25,7 @@ class App extends Component {
         </div>
         <div className='film-border'>
           <div className='image-container'>
-            {images.map(function(image) {
+            {images.map(function (image) {
               return <Image image={image} q={text} />
             })}
           </div>
@@ -36,11 +35,11 @@ class App extends Component {
     )
   }
 
-  getimages() {
+  getimages () {
     request.get(`https://pixabay.com/api/?key=${process.env.REACT_APP_SECRET_CODE}&per_page=36&q=('${this.state.text}')`)
       .then(response => {
         this.setState({
-          images : response.body.hits
+          images: response.body.hits
         })
         console.log(this.state.images.previewURL)
       })
@@ -65,14 +64,14 @@ class Image extends Component {
     console.log(this.state.expanded)
   }
 
-  render() {
+  render () {
     console.log(this.props)
     return (
       <div>
-        {this.state.expanded ?(
+        {this.state.expanded ? (
           <div>
             {/* img on click goes to expandPic */}
-            <img onClick={this.expandPic.bind(this)} className='big-photo' src={this.props.image.largeImageURL}/>
+            <img onClick={this.expandPic.bind(this)} className='big-photo' src={this.props.image.largeImageURL} />
             <div className='more-info'>
               <div className='src-link'>
                 <a href={this.props.image.pageURL}>🔗</a>
@@ -88,7 +87,7 @@ class Image extends Component {
         ) : (
           <div className='imageWithInfo'>
             {/* <p>Contributor: <strong>{this.props.image.user}</strong></p> */}
-            <img className='thumbnail' onClick ={this.expandPic.bind(this)} src={this.props.image.previewURL}/>
+            <img className='thumbnail' onClick={this.expandPic.bind(this)} src={this.props.image.previewURL} />
             {/* <p>Tags: <strong>{this.props.image.tags}</strong></p> */}
           </div>
         )}
@@ -106,4 +105,4 @@ class Image extends Component {
 //   }
 // }
 
-export default App;
+export default App
